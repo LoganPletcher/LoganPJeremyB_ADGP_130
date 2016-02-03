@@ -13,16 +13,11 @@ public class PlayerController : MonoBehaviour {
     public float AirTime;
     public float Rspeed;
 
-    GameObject IB;
-    public MeshRenderer InteractPrompt;
-    Vector3 IBCenter;
-    float IBradius;
+
 
     // Use this for initialization
     void Start ()
     {
-        GameObject IB = GameObject.Find("InteractionBounds");
-        InteractPrompt = IB.GetComponent<MeshRenderer>();
         
     }
 
@@ -86,9 +81,15 @@ public class PlayerController : MonoBehaviour {
         Ry = Rspeed * 0.25f * Input.GetAxis("Mouse X") * Time.deltaTime;
 
         transform.Rotate(0, Ry, 0);
-
-        print(InteractPrompt.bounds.extents.magnitude);
+        
 
 
     }
+
+    void OnGUI()
+    {
+        
+            //Debug.Log("Hello!");
+    }
+
 }
