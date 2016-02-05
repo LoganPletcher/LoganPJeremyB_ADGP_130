@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -13,7 +14,11 @@ public class PlayerController : MonoBehaviour {
     public float AirTime;
     public float Rspeed;
 
+    public Text InteractTEXT;
 
+    bool pressE = false;
+    bool EInteract = false;
+    Collider Interactive;
 
     // Use this for initialization
     void Start ()
@@ -81,15 +86,50 @@ public class PlayerController : MonoBehaviour {
         Ry = Rspeed * 0.25f * Input.GetAxis("Mouse X") * Time.deltaTime;
 
         transform.Rotate(0, Ry, 0);
-        
 
+        if (Input.GetKeyDown("e"))
+            pressE = true;
+        if (Input.GetKeyUp("e"))
+            pressE = false;
 
+        if((EInteract == true) && (pressE == true))
+        {
+            //print("Interaction");
+            if(Interactive.tag == "Door1A")
+            {
+                gameObject.transform.position = new Vector3(-10, Previous.y, 15.125f);
+            }
+            if (Interactive.tag == "Door1B")
+            {
+                gameObject.transform.position = new Vector3(10, Previous.y, 15.125f);
+            }
+            if ((Interactive.tag == "Door2.1A") || (Interactive.tag == "Door2.1B") 
+                || (Interactive.tag == "Door2.2A") || (Interactive.tag == "Door2.2B"))
+            {
+                gameObject.transform.position = new Vector3(0, Previous.y, 35.125f);
+            }
+        }
     }
 
-    void OnGUI()
+    void OnTriggerEnter(Collider other)
     {
-        
-            //Debug.Log("Hello!");
+        if ((other.tag == "Door1A") || (other.tag == "Door1B")
+            || (other.tag == "Door2.1A") || (other.tag == "Door2.1A")
+            || (other.tag == "Door2.2A") || (other.tag == "Door2.2B"))
+        {
+
+            InteractTEXT.text = "Press 'E' to interact";
+            Interactive = other;
+            EInteract = true;
+        }
+        //Destroy(other.gameObject);
+    }
+    
+    void OnTriggerExit()
+    {
+        InteractTEXT.text = "";
+        Interactive = null;
+        EInteract = false;
     }
 
 }
