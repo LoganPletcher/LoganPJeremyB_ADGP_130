@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject sword;
+
     public float speed = .05f;
     float Ry = 0;
     bool pressW = false;
@@ -20,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     bool EInteract = false;
     Collider Interactive;
 
+    bool swing = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -30,6 +34,8 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         Vector3 Previous = gameObject.transform.position;
+        sword.transform.position = new Vector3(Previous.x, -1, Previous.z + .26f);
+        float SRy = sword.transform.rotation.y;
 
         if (Input.GetKeyDown("w"))
             pressW = true;
@@ -109,6 +115,22 @@ public class PlayerController : MonoBehaviour {
                 gameObject.transform.position = new Vector3(0, Previous.y, 35.125f);
             }
         }
+
+        if((swing == false) && Input.GetMouseButtonDown(0))
+        {
+            swing = true;
+        }
+
+        if(swing == true)
+        {
+            sword.transform.Rotate(0, SRy - 0.1f, 0);
+        }
+
+        if(sword.transform.rotation.y <= -0.7)
+        {
+            swing = false;
+        }
+
     }
 
     void OnTriggerEnter(Collider other)
