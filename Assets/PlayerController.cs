@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
     Collider Interactive;
 
     bool swing = false;
+    private Vector3 targetAngles;
+    public float smooth = 1f;
 
     // Use this for initialization
     void Start ()
@@ -121,12 +123,20 @@ public class PlayerController : MonoBehaviour {
             swing = true;
         }
 
+        //print(sword.transform.rotation.y);
+        
+
         if(swing == true)
         {
-            sword.transform.Rotate(0, SRy - 0.1f, 0);
+            sword.transform.Rotate(0, Time.deltaTime * 30, 0, Space.Self);
+            //targetAngles = sword.transform.eulerAngles + 180f * Vector3.up;
+            //sword.transform.Rotate(0, SRy - 0.1f, 0);
         }
 
-        if(sword.transform.rotation.y <= -0.7)
+        sword.transform.eulerAngles = Vector3.Lerp
+            (sword.transform.eulerAngles, targetAngles, smooth * Time.deltaTime);
+
+        if (sword.transform.rotation.y <= -0.7)
         {
             swing = false;
         }
@@ -146,7 +156,9 @@ public class PlayerController : MonoBehaviour {
         }
         //Destroy(other.gameObject);
     }
-    
+    /// <summary>
+    /// 
+    /// </summary>
     void OnTriggerExit()
     {
         InteractTEXT.text = "";
