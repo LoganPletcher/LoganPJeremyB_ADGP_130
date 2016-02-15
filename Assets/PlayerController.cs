@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour {
     bool swing = false;
     private Vector3 targetAngles;
     public float smooth = 1f;
+    float start;
+    float dest = 0.0f;
+    float SDegr = 450;
 
     // Use this for initialization
     void Start ()
@@ -36,7 +39,6 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         Vector3 Previous = gameObject.transform.position;
-        sword.transform.position = new Vector3(Previous.x, -1, Previous.z + .26f);
         float SRy = sword.transform.rotation.y;
 
         if (Input.GetKeyDown("w"))
@@ -124,22 +126,32 @@ public class PlayerController : MonoBehaviour {
         }
 
         //print(sword.transform.rotation.y);
-        
+        start = sword.transform.eulerAngles.y;
 
         if(swing == true)
         {
-            sword.transform.Rotate(0, Time.deltaTime * 30, 0, Space.Self);
+            //dest = start + SDegr * (180.0f / 3.14159265359f);
+            //sword.transform.Rotate(0, Time.deltaTime * 30, 0, Space.Self);
             //targetAngles = sword.transform.eulerAngles + 180f * Vector3.up;
             //sword.transform.Rotate(0, SRy - 0.1f, 0);
+            if(!((transform.eulerAngles.y - 360) >= -5) && (transform.eulerAngles.y <= 5))
+                sword.transform.position = new Vector3(Previous.x, .75f, Previous.z + .27f);
+            sword.transform.eulerAngles = new Vector3(0, SDegr + transform.eulerAngles.y, 0);
+            SDegr -= 5;
+            
         }
+        print(transform.eulerAngles.y);
+        //sword.transform.eulerAngles = Vector3.Lerp
+           // (sword.transform.eulerAngles, targetAngles, smooth * Time.deltaTime);
 
-        sword.transform.eulerAngles = Vector3.Lerp
-            (sword.transform.eulerAngles, targetAngles, smooth * Time.deltaTime);
-
-        if (sword.transform.rotation.y <= -0.7)
+        if (SDegr <= 270)
         {
             swing = false;
+            SDegr = 450;
         }
+
+        if(swing == false)
+            sword.transform.position = new Vector3(Previous.x, -1, Previous.z + .26f);
 
     }
 
