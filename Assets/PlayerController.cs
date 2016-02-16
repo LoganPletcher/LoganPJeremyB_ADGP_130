@@ -23,10 +23,6 @@ public class PlayerController : MonoBehaviour {
     Collider Interactive;
 
     bool swing = false;
-    private Vector3 targetAngles;
-    public float smooth = 1f;
-    float start;
-    float dest = 0.0f;
     float SDegr = 450;
 
     // Use this for initialization
@@ -39,7 +35,6 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         Vector3 Previous = gameObject.transform.position;
-        float SRy = sword.transform.rotation.y;
 
         if (Input.GetKeyDown("w"))
             pressW = true;
@@ -125,33 +120,28 @@ public class PlayerController : MonoBehaviour {
             swing = true;
         }
 
-        //print(sword.transform.rotation.y);
-        start = sword.transform.eulerAngles.y;
+        Vector3 SPrev = sword.transform.position;
 
         if(swing == true)
         {
-            //dest = start + SDegr * (180.0f / 3.14159265359f);
-            //sword.transform.Rotate(0, Time.deltaTime * 30, 0, Space.Self);
-            //targetAngles = sword.transform.eulerAngles + 180f * Vector3.up;
-            //sword.transform.Rotate(0, SRy - 0.1f, 0);
-            if(!((transform.eulerAngles.y - 360) >= -5) && (transform.eulerAngles.y <= 5))
-                sword.transform.position = new Vector3(Previous.x, .75f, Previous.z + .27f);
+            if ((transform.eulerAngles.y >= 5) && (transform.eulerAngles.y <= 15))
+                sword.transform.position = new Vector3
+                    (Previous.x + -0.0176f, .75f, Previous.z + .265f);
+            else
+                sword.transform.position = new Vector3
+                    (SPrev.x, .75f, SPrev.z);
             sword.transform.eulerAngles = new Vector3(0, SDegr + transform.eulerAngles.y, 0);
             SDegr -= 5;
-            
+            SPrev = sword.transform.position;
         }
-        print(transform.eulerAngles.y);
-        //sword.transform.eulerAngles = Vector3.Lerp
-           // (sword.transform.eulerAngles, targetAngles, smooth * Time.deltaTime);
 
         if (SDegr <= 270)
         {
             swing = false;
             SDegr = 450;
+            sword.transform.position = new Vector3
+                (SPrev.x, -1, SPrev.z);
         }
-
-        if(swing == false)
-            sword.transform.position = new Vector3(Previous.x, -1, Previous.z + .26f);
 
     }
 
@@ -166,7 +156,6 @@ public class PlayerController : MonoBehaviour {
             Interactive = other;
             EInteract = true;
         }
-        //Destroy(other.gameObject);
     }
     /// <summary>
     /// 
