@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+
+    public GameObject sword;
 
     public float speed = .05f;
     float Ry = 0;
@@ -13,16 +16,19 @@ public class PlayerController : MonoBehaviour {
     public float AirTime;
     public float Rspeed;
 
-    GameObject IB;
-    public MeshRenderer InteractPrompt;
-    Vector3 IBCenter;
-    float IBradius;
+    public Text InteractTEXT;
+
+    bool pressE = false;
+    bool EInteract = false;
+    Collider Interactive;
+
+    bool swing = false;
+    private Vector3 targetAngles;
+    public float smooth = 1f;
 
     // Use this for initialization
     void Start ()
     {
-        GameObject IB = GameObject.Find("InteractionBounds");
-        InteractPrompt = IB.GetComponent<MeshRenderer>();
         
     }
 
@@ -30,6 +36,8 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         Vector3 Previous = gameObject.transform.position;
+        sword.transform.position = new Vector3(Previous.x, -1, Previous.z + .26f);
+        float SRy = sword.transform.rotation.y;
 
         if (Input.GetKeyDown("w"))
             pressW = true;
@@ -87,8 +95,75 @@ public class PlayerController : MonoBehaviour {
 
         transform.Rotate(0, Ry, 0);
 
-        print(InteractPrompt.bounds.extents.magnitude);
+        if (Input.GetKeyDown("e"))
+            pressE = true;
+        if (Input.GetKeyUp("e"))
+            pressE = false;
 
+        if((EInteract == true) && (pressE == true))
+        {
+            //print("Interaction");
+            if(Interactive.tag == "Door1A")
+            {
+                gameObject.transform.position = new Vector3(-10, Previous.y, 15.125f);
+            }
+            if (Interactive.tag == "Door1B")
+            {
+                gameObject.transform.position = new Vector3(10, Previous.y, 15.125f);
+            }
+            if ((Interactive.tag == "Door2.1A") || (Interactive.tag == "Door2.1B") 
+                || (Interactive.tag == "Door2.2A") || (Interactive.tag == "Door2.2B"))
+            {
+                gameObject.transform.position = new Vector3(0, Previous.y, 35.125f);
+            }
+        }
+
+        if((swing == false) && Input.GetMouseButtonDown(0))
+        {
+            swing = true;
+        }
+
+        //print(sword.transform.rotation.y);
+        
+
+        if(swing == true)
+        {
+            sword.transform.Rotate(0, Time.deltaTime * 30, 0, Space.Self);
+            //targetAngles = sword.transform.eulerAngles + 180f * Vector3.up;
+            //sword.transform.Rotate(0, SRy - 0.1f, 0);
+        }
+
+        sword.transform.eulerAngles = Vector3.Lerp
+            (sword.transform.eulerAngles, targetAngles, smooth * Time.deltaTime);
+
+        if (sword.transform.rotation.y <= -0.7)
+        {
+            swing = false;
+        }
 
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if ((other.tag == "Door1A") || (other.tag == "Door1B")
+            || (other.tag == "Door2.1A") || (other.tag == "Door2.1A")
+            || (other.tag == "Door2.2A") || (other.tag == "Door2.2B"))
+        {
+
+            InteractTEXT.text = "Press 'E' to interact";
+            Interactive = other;
+            EInteract = true;
+        }
+        //Destroy(other.gameObject);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    void OnTriggerExit()
+    {
+        InteractTEXT.text = "";
+        Interactive = null;
+        EInteract = false;
+    }
+
 }
