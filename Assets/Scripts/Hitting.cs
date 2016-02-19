@@ -20,7 +20,8 @@ public class Hitting : MonoBehaviour
     {
         //GameObject otherChild = other.gameObject;
         //GameObject otherParent = otherChild.transform.parent.gameObject;
+        GameObject otherObject = other.gameObject;
         if (other.tag == "Monster")
-            Destroy(gameObject);
+            Destroy(otherObject);
     }
 }

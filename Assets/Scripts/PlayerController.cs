@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         if (pressW == true)
             gameObject.transform.position = new Vector3
                 (Previous.x + ((transform.forward.x * speed) * Time.deltaTime),
-                Previous.y, Previous.z + +((transform.forward.z * speed) * Time.deltaTime));
+                Previous.y, Previous.z + ((transform.forward.z * speed) * Time.deltaTime));
         Previous = gameObject.transform.position;
         if (Input.GetKeyDown("s"))
             pressS = true;
