@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour {
     bool swing = false;
     float SDegr = 450;
 
-    float health = 100;
+    public float health = 100;
+    public bool Alive = true;
 
     // Use this for initialization
     void Start ()
@@ -144,7 +145,9 @@ public class PlayerController : MonoBehaviour {
             sword.transform.position = new Vector3
                 (SPrev.x, -2, SPrev.z);
         }
-
+        //print(Previous.z);
+        if (health <= 0)
+            Alive = false;
     }
 
     void OnTriggerEnter(Collider other)

@@ -20,4 +20,9 @@ public class EnemyInRange : MonoBehaviour {
         if (other.tag == "Player")
             PiR = true;
     }
+
+    void OnTriggerExit()
+    {
+        PiR = false;
+    }
 }
