@@ -4,6 +4,8 @@ using System.Collections;
 public class Hitting : MonoBehaviour
 {
     public GameObject MonsterCount;
+
+    public GameObject Pause;
     // Use this for initialization
     void Start()
     {
@@ -17,13 +19,16 @@ public class Hitting : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //GameObject otherChild = other.gameObject;
-        //GameObject otherParent = otherChild.transform.parent.gameObject;
-        GameObject otherObject = other.gameObject;
-        if (other.tag == "Monster")
+        if (Pause.GetComponent<Pause>().PauseOn == false)
         {
-            MonsterCount.GetComponent<SpawningScript>().MonsterCount--;
-            Destroy(otherObject);
+            //GameObject otherChild = other.gameObject;
+            //GameObject otherParent = otherChild.transform.parent.gameObject;
+            GameObject otherObject = other.gameObject;
+            if (other.tag == "Monster")
+            {
+                MonsterCount.GetComponent<SpawningScript>().MonsterCount--;
+                Destroy(otherObject);
+            }
         }
     }
 }

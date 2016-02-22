@@ -9,6 +9,7 @@ public class TongueAttack : MonoBehaviour {
     public GameObject Parent;
     public GameObject player;
     public GameObject AttRadius;
+    public GameObject Pause;
     
     bool attack = false;
     bool AttSequEnd = false;
@@ -21,37 +22,41 @@ public class TongueAttack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 Monster = Parent.transform.position;
-        Vector3 PreviousT = Tongue.transform.position;
-        if (Tongue.transform.localPosition.z <= 0)
+        if (Pause.GetComponent<Pause>().PauseOn == false)
         {
-            attack = AttRadius.GetComponent<EnemyInRange>().PiR;
-            AttSequEnd = false;
+            Vector3 PreviousT = Tongue.transform.position;
+            if (Tongue.transform.localPosition.z <= 0)
+            {
+                attack = AttRadius.GetComponent<EnemyInRange>().PiR;
+                AttSequEnd = false;
+            }
+            if ((attack == true && Tongue.transform.localPosition.z < .75f) && AttSequEnd == false)
+            {
+                Tongue.transform.position = new Vector3
+                    (PreviousT.x + ((Parent.transform.forward.x * AttSpeed) * Time.deltaTime),
+                    PreviousT.y, PreviousT.z + ((Parent.transform.forward.z * AttSpeed) * Time.deltaTime));
+            }
+            PreviousT = Tongue.transform.position;
+            if (Tongue.transform.localPosition.z >= .75f)
+            {
+                AttSequEnd = true;
+                attack = false;
+            }
+            if ((attack == false && Tongue.transform.localPosition.z > 0) && AttSequEnd == true)
+            {
+                Tongue.transform.position = new Vector3
+                    (PreviousT.x - ((Parent.transform.forward.x * AttSpeed) * Time.deltaTime),
+                    PreviousT.y, PreviousT.z - ((Parent.transform.forward.z * AttSpeed) * Time.deltaTime));
+            }
+            PreviousT = Tongue.transform.position;
         }
-        if ((attack == true && Tongue.transform.localPosition.z < .75f) && AttSequEnd == false)
-        {
-            Tongue.transform.position = new Vector3
-                (PreviousT.x + ((Parent.transform.forward.x * AttSpeed) * Time.deltaTime),
-                PreviousT.y, PreviousT.z + ((Parent.transform.forward.z * AttSpeed) * Time.deltaTime));
-        }
-        PreviousT = Tongue.transform.position;
-        if (Tongue.transform.localPosition.z >= .75f)
-        {
-            AttSequEnd = true;
-            attack = false;
-        }
-        if ((attack == false && Tongue.transform.localPosition.z > 0) && AttSequEnd == true)
-        {
-            Tongue.transform.position = new Vector3
-                (PreviousT.x - ((Parent.transform.forward.x * AttSpeed) * Time.deltaTime),
-                PreviousT.y, PreviousT.z - ((Parent.transform.forward.z * AttSpeed) * Time.deltaTime));
-        }
-        PreviousT = Tongue.transform.position;
-
 	}
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-            player.GetComponent<PlayerController>().health -= 10;
+        if (Pause.GetComponent<Pause>().PauseOn == false)
+        {
+            if (other.tag == "Player")
+                player.GetComponent<PlayerController>().health -= 10;
+        }
     }
 }

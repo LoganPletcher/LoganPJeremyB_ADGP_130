@@ -5,8 +5,8 @@ public class EnemyInRange : MonoBehaviour {
 
     public bool PiR = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

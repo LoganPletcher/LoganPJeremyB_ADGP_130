@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
     public float health = 100;
     public bool Alive = true;
 
+    public GameObject Pause;
+
     // Use this for initialization
     void Start ()
     {
@@ -37,122 +39,125 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Vector3 Previous = gameObject.transform.position;
-
-        if (Input.GetKeyDown("w"))
-            pressW = true;
-        if (Input.GetKeyUp("w"))
-            pressW = false;
-        if (pressW == true)
-            gameObject.transform.position = new Vector3
-                (Previous.x + ((transform.forward.x * speed) * Time.deltaTime),
-                Previous.y, Previous.z + ((transform.forward.z * speed) * Time.deltaTime));
-        Previous = gameObject.transform.position;
-        if (Input.GetKeyDown("s"))
-            pressS = true;
-        if (Input.GetKeyUp("s"))
-            pressS = false;
-        if (pressS == true)
-            gameObject.transform.position = new Vector3
-                (Previous.x - ((transform.forward.x * speed) * Time.deltaTime),
-                Previous.y, Previous.z - ((transform.forward.z * speed) * Time.deltaTime));
-        Previous = gameObject.transform.position;
-        if (Input.GetKeyDown("a"))
-            pressA = true;
-        if (Input.GetKeyUp("a"))
-            pressA = false;
-        if (pressA == true)
-            gameObject.transform.position = new Vector3
-                (Previous.x - ((transform.right.x * speed) * Time.deltaTime),
-                Previous.y, Previous.z - ((transform.right.z * speed) * Time.deltaTime));
-        Previous = gameObject.transform.position;
-        if (Input.GetKeyDown("d"))
-            pressD = true;
-        if (Input.GetKeyUp("d"))
-            pressD = false;
-        if (pressD == true)
-            gameObject.transform.position = new Vector3
-                (Previous.x + ((transform.right.x * speed) * Time.deltaTime),
-            Previous.y, Previous.z + ((transform.right.z * speed) * Time.deltaTime));
-        Previous = gameObject.transform.position;
-        //print("W key was pressed");
-
-        if (Input.GetKeyDown("space"))
-            Jump = true;
-        if (Jump == true)
+        if (Pause.GetComponent<Pause>().PauseOn == false)
         {
-            AirTime += .05f;
-            gameObject.transform.position = new Vector3
-                (Previous.x, (Previous.y + (speed * Time.deltaTime)), Previous.z);
-        }
-        if (AirTime >= 1.0f)
-        {
-            Jump = false;
-            AirTime = 0.0f;
-        }
+            Vector3 Previous = gameObject.transform.position;
 
-        Ry = Rspeed * 0.25f * Input.GetAxis("Mouse X") * Time.deltaTime;
+            if (Input.GetKeyDown("w"))
+                pressW = true;
+            if (Input.GetKeyUp("w"))
+                pressW = false;
+            if (pressW == true)
+                gameObject.transform.position = new Vector3
+                    (Previous.x + ((transform.forward.x * speed) * Time.deltaTime),
+                    Previous.y, Previous.z + ((transform.forward.z * speed) * Time.deltaTime));
+            Previous = gameObject.transform.position;
+            if (Input.GetKeyDown("s"))
+                pressS = true;
+            if (Input.GetKeyUp("s"))
+                pressS = false;
+            if (pressS == true)
+                gameObject.transform.position = new Vector3
+                    (Previous.x - ((transform.forward.x * speed) * Time.deltaTime),
+                    Previous.y, Previous.z - ((transform.forward.z * speed) * Time.deltaTime));
+            Previous = gameObject.transform.position;
+            if (Input.GetKeyDown("a"))
+                pressA = true;
+            if (Input.GetKeyUp("a"))
+                pressA = false;
+            if (pressA == true)
+                gameObject.transform.position = new Vector3
+                    (Previous.x - ((transform.right.x * speed) * Time.deltaTime),
+                    Previous.y, Previous.z - ((transform.right.z * speed) * Time.deltaTime));
+            Previous = gameObject.transform.position;
+            if (Input.GetKeyDown("d"))
+                pressD = true;
+            if (Input.GetKeyUp("d"))
+                pressD = false;
+            if (pressD == true)
+                gameObject.transform.position = new Vector3
+                    (Previous.x + ((transform.right.x * speed) * Time.deltaTime),
+                Previous.y, Previous.z + ((transform.right.z * speed) * Time.deltaTime));
+            Previous = gameObject.transform.position;
+            //print("W key was pressed");
 
-        transform.Rotate(0, Ry, 0);
-
-        if (Input.GetKeyDown("e"))
-            pressE = true;
-        if (Input.GetKeyUp("e"))
-            pressE = false;
-
-        if((EInteract == true) && (pressE == true))
-        {
-            //print("Interaction");
-            if(Interactive.tag == "Door1A")
+            if (Input.GetKeyDown("space"))
+                Jump = true;
+            if (Jump == true)
             {
-                gameObject.transform.position = new Vector3(-10, Previous.y, 15.125f);
+                AirTime += .05f;
+                gameObject.transform.position = new Vector3
+                    (Previous.x, (Previous.y + (speed * Time.deltaTime)), Previous.z);
             }
-            if (Interactive.tag == "Door1B")
+            if (AirTime >= 1.0f)
             {
-                gameObject.transform.position = new Vector3(10, Previous.y, 15.125f);
+                Jump = false;
+                AirTime = 0.0f;
             }
-            if ((Interactive.tag == "Door2.1A") || (Interactive.tag == "Door2.1B") 
-                || (Interactive.tag == "Door2.2A") || (Interactive.tag == "Door2.2B"))
+
+            Ry = Rspeed * 0.25f * Input.GetAxis("Mouse X") * Time.deltaTime;
+
+            transform.Rotate(0, Ry, 0);
+
+            if (Input.GetKeyDown("e"))
+                pressE = true;
+            if (Input.GetKeyUp("e"))
+                pressE = false;
+
+            if ((EInteract == true) && (pressE == true))
             {
-                gameObject.transform.position = new Vector3(0, Previous.y, 35.125f);
+                //print("Interaction");
+                if (Interactive.tag == "Door1A")
+                {
+                    gameObject.transform.position = new Vector3(-10, Previous.y, 15.125f);
+                }
+                if (Interactive.tag == "Door1B")
+                {
+                    gameObject.transform.position = new Vector3(10, Previous.y, 15.125f);
+                }
+                if ((Interactive.tag == "Door2.1A") || (Interactive.tag == "Door2.1B")
+                    || (Interactive.tag == "Door2.2A") || (Interactive.tag == "Door2.2B"))
+                {
+                    gameObject.transform.position = new Vector3(0, Previous.y, 35.125f);
+                }
             }
-        }
 
-        if((swing == false) && Input.GetMouseButtonDown(0))
-        {
-            swing = true;
-        }
+            if ((swing == false) && Input.GetMouseButtonDown(0))
+            {
+                swing = true;
+            }
 
-        Vector3 SPrev = sword.transform.position;
+            Vector3 SPrev = sword.transform.position;
 
-        if(swing == true)
-        {
-            if ((transform.eulerAngles.y >= 5) && (transform.eulerAngles.y <= 15))
+            if (swing == true)
+            {
+                if ((transform.eulerAngles.y >= 5) && (transform.eulerAngles.y <= 15))
+                    sword.transform.position = new Vector3
+                        (Previous.x + -0.0176f, .75f, Previous.z + .265f);
+                else
+                    sword.transform.position = new Vector3
+                        (SPrev.x, .75f, SPrev.z);
+                sword.transform.eulerAngles = new Vector3(0, SDegr + transform.eulerAngles.y, 0);
+                SDegr -= 5;
+                SPrev = sword.transform.position;
+            }
+
+            if (SDegr <= 270)
+            {
+                swing = false;
+                SDegr = 450;
                 sword.transform.position = new Vector3
-                    (Previous.x + -0.0176f, .75f, Previous.z + .265f);
-            else
-                sword.transform.position = new Vector3
-                    (SPrev.x, .75f, SPrev.z);
-            sword.transform.eulerAngles = new Vector3(0, SDegr + transform.eulerAngles.y, 0);
-            SDegr -= 5;
-            SPrev = sword.transform.position;
+                    (SPrev.x, -2, SPrev.z);
+            }
+            //print(Previous.z);
+            if (health <= 0)
+                Alive = false;
         }
-
-        if (SDegr <= 270)
-        {
-            swing = false;
-            SDegr = 450;
-            sword.transform.position = new Vector3
-                (SPrev.x, -2, SPrev.z);
-        }
-        //print(Previous.z);
-        if (health <= 0)
-            Alive = false;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == "Door1A") || (other.tag == "Door1B")
+            if ((other.tag == "Door1A") || (other.tag == "Door1B")
             || (other.tag == "Door2.1A") || (other.tag == "Door2.1A")
             || (other.tag == "Door2.2A") || (other.tag == "Door2.2B"))
         {
