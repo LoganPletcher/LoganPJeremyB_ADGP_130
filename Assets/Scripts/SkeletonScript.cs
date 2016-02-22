@@ -9,6 +9,7 @@ public class SkeletonScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Player = GameObject.FindGameObjectWithTag("Player");
         transform.position = new Vector3
             (Random.Range(-25.0f, 25.0f), .75f, Random.Range(-25.0f - 30, 25.0f - 30));
 	}

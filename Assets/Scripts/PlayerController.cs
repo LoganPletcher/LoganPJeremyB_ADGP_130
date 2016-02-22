@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public GameObject sword;
 
@@ -28,18 +29,22 @@ public class PlayerController : MonoBehaviour {
     public float health = 100;
     public bool Alive = true;
 
-    public GameObject Pause;
-
+    
+    public Pause pause;
+    public Text uihp;
+    public Text uispeed;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Pause.GetComponent<Pause>().PauseOn == false)
+        uihp.text = ("HP: ") + health.ToString();
+        uispeed.text = ("Speed: ") + speed.ToString();
+        if (pause.PauseOn == false)
         {
             Vector3 Previous = gameObject.transform.position;
 
@@ -157,11 +162,13 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-            if ((other.tag == "Door1A") || (other.tag == "Door1B")
-            || (other.tag == "Door2.1A") || (other.tag == "Door2.1A")
-            || (other.tag == "Door2.2A") || (other.tag == "Door2.2B"))
+        if ((other.tag == "Door1A") || (other.tag == "Door1B")
+        || (other.tag == "Door2.1A") || (other.tag == "Door2.1A")
+        || (other.tag == "Door2.2A") || (other.tag == "Door2.2B"))
         {
 
+            if (!InteractTEXT.transform.gameObject.activeSelf)
+                InteractTEXT.transform.gameObject.SetActive(true);
             InteractTEXT.text = "Press 'E' to interact";
             Interactive = other;
             EInteract = true;
@@ -172,6 +179,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void OnTriggerExit()
     {
+        InteractTEXT.transform.gameObject.SetActive(false);
         InteractTEXT.text = "";
         Interactive = null;
         EInteract = false;
