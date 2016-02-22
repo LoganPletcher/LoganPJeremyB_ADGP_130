@@ -12,6 +12,8 @@ TagManager:
   - Door2.1B
   - Door1A
   - Weapon
+  - Pause
+  - Spawning
   layers:
   - Default
   - TransparentFX

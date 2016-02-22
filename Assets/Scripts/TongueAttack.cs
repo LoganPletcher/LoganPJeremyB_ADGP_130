@@ -18,7 +18,8 @@ public class TongueAttack : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
-	}
+        Pause = GameObject.FindGameObjectWithTag("Pause");
+    }
 	
 	// Update is called once per frame
 	void Update () {
