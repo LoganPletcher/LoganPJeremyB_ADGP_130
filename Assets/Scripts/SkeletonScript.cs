@@ -12,7 +12,8 @@ public class SkeletonScript : MonoBehaviour {
         Player = GameObject.FindGameObjectWithTag("Player");
         transform.position = new Vector3
             (Random.Range(-25.0f, 25.0f), .75f, Random.Range(-25.0f - 30, 25.0f - 30));
-	}
+        Pause = GameObject.FindGameObjectWithTag("Pause");
+    }
 
     // Update is called once per frame
     void Update()

@@ -9,6 +9,8 @@ public class Hitting : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Pause = GameObject.FindGameObjectWithTag("Pause");
+        MonsterCount = GameObject.FindGameObjectWithTag("Spawning");
     }
 
     // Update is called once per frame

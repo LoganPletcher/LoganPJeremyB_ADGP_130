@@ -9,8 +9,8 @@ public class LivingChecking : MonoBehaviour {
     public GameObject Pause;
     // Use this for initialization
     void Start () {
-	
-	}
+        Pause = GameObject.FindGameObjectWithTag("Pause");
+    }
 
     // Update is called once per frame
     void Update()
