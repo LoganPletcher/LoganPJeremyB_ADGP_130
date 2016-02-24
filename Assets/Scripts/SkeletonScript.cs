@@ -11,7 +11,7 @@ public class SkeletonScript : MonoBehaviour {
     void Start () {
         Player = GameObject.FindGameObjectWithTag("Player");
         transform.position = new Vector3
-            (Random.Range(-25.0f, 25.0f), .75f, Random.Range(-25.0f - 30, 25.0f - 30));
+            (Random.Range(-120.0f, 120.0f), .75f, Random.Range(-120.0f, 120.0f));
         Pause = GameObject.FindGameObjectWithTag("Pause");
     }
 

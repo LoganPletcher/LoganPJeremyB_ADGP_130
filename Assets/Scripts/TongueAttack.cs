@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TongueAttack : MonoBehaviour {
 
-    float AttSpeed = 3;
+    float AttSpeed = 1;
     public GameObject Tongue;
     public GameObject Parent;
     public GameObject player;
@@ -56,8 +56,8 @@ public class TongueAttack : MonoBehaviour {
     {
         if (Pause.GetComponent<Pause>().PauseOn == false)
         {
-            if (other.tag == "Player")
-                player.GetComponent<PlayerController>().health -= 10;
+            if (other.tag == "Player" && player.GetComponent<PlayerController>().health > 0)
+                player.GetComponent<PlayerController>().health -= 3;
         }
     }
 }

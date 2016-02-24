@@ -8,7 +8,7 @@ public class SpawningScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        for (int i = 0; i < 19; i++)
+        for (int i = 0; i < 49; i++)
         {
             Instantiate(Monster);
             MonsterCount++;

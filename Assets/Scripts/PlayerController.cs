@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     bool swing = false;
     float SDegr = 450;
 
-    public float health = 100;
+    public float health = 66;
     public bool Alive = true;
 
     

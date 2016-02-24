@@ -646,8 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e028817edcdfa1447a7dd002778d6114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterCount: {fileID: 0}
-  Pause: {fileID: 0}
+  MonsterCount: {fileID: 153234, guid: bcd4642cb2b44f349877a1973c14588b, type: 2}
+  Pause: {fileID: 124774, guid: 7696f359fa1cc0c4c8c9c4bf4f10aa24, type: 2}
 --- !u!114 &11450120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -663,10 +663,12 @@ MonoBehaviour:
   speed: 5
   AirTime: 1
   Rspeed: 1000
-  InteractTEXT: {fileID: 0}
+  InteractTEXT: {fileID: 11474854, guid: 252e4458f72aa3f489ee422ebd86315c, type: 2}
   health: 100
   Alive: 1
-  Pause: {fileID: 0}
+  pause: {fileID: 11443518, guid: 7696f359fa1cc0c4c8c9c4bf4f10aa24, type: 2}
+  uihp: {fileID: 11489522, guid: 252e4458f72aa3f489ee422ebd86315c, type: 2}
+  uispeed: {fileID: 11439700, guid: 252e4458f72aa3f489ee422ebd86315c, type: 2}
 --- !u!124 &12419870
 Behaviour:
   m_ObjectHideFlags: 1
