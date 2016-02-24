@@ -295,6 +295,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11428702, guid: 197db5c53739fac44a3ffcd811a5b60e, type: 2}
+      propertyPath: WLMenu
+      value: 
+      objectReference: {fileID: 1091328990}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 197db5c53739fac44a3ffcd811a5b60e, type: 2}
   m_IsPrefabParent: 0
@@ -369,6 +373,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11443518, guid: 7696f359fa1cc0c4c8c9c4bf4f10aa24, type: 2}
+      propertyPath: PauseOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443518, guid: 7696f359fa1cc0c4c8c9c4bf4f10aa24, type: 2}
+      propertyPath: PCanvas
+      value: 
+      objectReference: {fileID: 1430905515}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7696f359fa1cc0c4c8c9c4bf4f10aa24, type: 2}
   m_IsPrefabParent: 0
@@ -587,6 +599,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
+--- !u!223 &1091328990 stripped
+Canvas:
+  m_PrefabParentObject: {fileID: 22313152, guid: 197db5c53739fac44a3ffcd811a5b60e,
+    type: 2}
+  m_PrefabInternal: {fileID: 488139136}
 --- !u!1 &1166680312
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +753,7 @@ Transform:
   m_LocalScale: {x: 250, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 11
 --- !u!1001 &1265470376
 Prefab:
   m_ObjectHideFlags: 0
@@ -791,7 +808,7 @@ Prefab:
     - target: {fileID: 11450120, guid: 06eb4e37f9d1e3e49b74c078f5b8bd82, type: 2}
       propertyPath: Pause
       value: 
-      objectReference: {fileID: 388963728}
+      objectReference: {fileID: 0}
     - target: {fileID: 11450120, guid: 06eb4e37f9d1e3e49b74c078f5b8bd82, type: 2}
       propertyPath: Alive
       value: 1
