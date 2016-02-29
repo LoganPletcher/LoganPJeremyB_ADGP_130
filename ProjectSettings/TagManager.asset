@@ -15,6 +15,10 @@ TagManager:
   - Pause
   - Spawning
   - LivingCheck
+  - BtGButton
+  - ExitButton
+  - MButton
+  - QuitButton
   layers:
   - Default
   - TransparentFX

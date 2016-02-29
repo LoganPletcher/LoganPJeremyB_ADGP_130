@@ -9,20 +9,28 @@ public class LivingChecking : MonoBehaviour {
     GameObject MonstersAlive;
     GameObject PlayerAlive;
     public GameObject Pause;
-    public Canvas WLMenu;
-    public Canvas PauseMenu;
-    public Button MButton;
-    public Button QuitButton;
+    public Canvas CANVAS;
+    public Text HP;
+    public Text SPEED;
+    public Text PauseT;
+    public GameObject BtGButton;
+    public GameObject ExitButton;
+    public GameObject MButton;
+    public GameObject QuitButton;
     public Text Winner;
     public Text Loser;
     public Image DeathOverlay;
     // Use this for initialization
     void Start () {
         Pause = GameObject.FindGameObjectWithTag("Pause");
-        WLMenu = WLMenu.GetComponent<Canvas>();
-        PauseMenu = PauseMenu.GetComponent<Canvas>();
-        MButton = MButton.GetComponent<Button>();
-        QuitButton = QuitButton.GetComponent<Button>();
+        CANVAS = CANVAS.GetComponent<Canvas>();
+        HP = HP.GetComponent<Text>();
+        SPEED = SPEED.GetComponent<Text>();
+        PauseT = PauseT.GetComponent<Text>();
+        BtGButton = GameObject.FindGameObjectWithTag("BtGButton");
+        ExitButton = GameObject.FindGameObjectWithTag("ExitButton");
+        MButton = GameObject.FindGameObjectWithTag("MButton");
+        QuitButton = GameObject.FindGameObjectWithTag("QuitButton");
         Winner = Winner.GetComponent<Text>();
         Loser = Loser.GetComponent<Text>();
         DeathOverlay = DeathOverlay.GetComponent<Image>();
@@ -32,7 +40,7 @@ public class LivingChecking : MonoBehaviour {
     void Update()
     {
         if (gameRun == true)
-            WLMenu.enabled = false;
+            CANVAS.enabled = true;
         if (Pause.GetComponent<Pause>().PauseOn == false)
         {
             MonstersAlive = GameObject.Find("EnemySpawning");
@@ -51,10 +59,15 @@ public class LivingChecking : MonoBehaviour {
         if(Pause.GetComponent<Pause>().PauseOn == true && gameRun == false)
         {
             Cursor.lockState = CursorLockMode.None;
+            HP.enabled = true;
+            SPEED.enabled = true;
             Cursor.visible = true;
-            WLMenu.enabled = true;
-            PauseMenu.enabled = false;
-            if(PlayerAlive.GetComponent<PlayerController>().Alive == true)
+            CANVAS.enabled = true;
+            BtGButton.SetActive(false);
+            ExitButton.SetActive(false);
+            MButton.SetActive(true);
+            QuitButton.SetActive(true);
+            if (PlayerAlive.GetComponent<PlayerController>().Alive == true)
             {
                 Winner.enabled = true;
                 Loser.enabled = false;
